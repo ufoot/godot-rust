@@ -120,7 +120,9 @@ matrix:
         # aarch64 and armv7 cover most Android phones & tablets.
         # However armv7 is not yet available for Rust stable.
         - rustup target add aarch64-linux-android
-        - sudo apt-get install openjdk-8-jdk llvm-dev libclang-dev clang
+        - sudo apt-get install openjdk-8-jdk
+        - sudo apt-get install llvm-dev libclang-dev clang
+        - sudo apt-get install libc6-dev libc6-dev-arm64-cross
         # Downloading NDK. This file is huge (1Gb) maybe extract only what's needed and repackage.
         # See https://developer.android.com/ndk/downloads for updates.
         - install -d /opt
