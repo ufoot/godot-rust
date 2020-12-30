@@ -2,9 +2,7 @@ language: rust
 
 branches:
   only:
-    - staging
-    - trying
-    - master
+    - add-ci-for-android
 
 matrix:
 
@@ -146,18 +144,18 @@ script:
       cargo test --all --all-features;
       if [[ "$CI_MSVC_TEST" == "yes" ]]; then
         cargo test --target x86_64-pc-windows-msvc --all --all-features;
-      fi
+      fi;
     fi
 
   - if [[ "$CI_STAGE_BUILD_RELEASE" == "yes" ]]; then
       cargo build --release;
       if [[ "$CI_MSVC_TEST" == "yes" ]]; then
         cargo build --target x86_64-pc-windows-msvc --release;
-      fi
+      fi;
       if [[ "$CI_ANDROID_TEST" == "yes" ]]; then
         cargo build --target aarch64-linux-android --release;
         cargo build --target armv7-linux-android --release;
-      fi
+      fi;
     fi
 
   - if [[ "$CI_STAGE_GODOT_TEST" == "yes" ]]; then
