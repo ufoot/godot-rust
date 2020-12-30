@@ -124,9 +124,9 @@ matrix:
         # - cd /opt && tar xzf android-sdk_r24.4.1-linux.tgz
         - sudo apt-get install openjdk-8-jdk
         # Note: this NDK download is huge (1Gb) maybe extract only what's needed and repackage.
-        - cd /opt && wget -nc -nv https://dl.google.com/android/repository/android-ndk-r21d-linux-x86_64.zip
-        - cd /opt && unzip -q android-ndk-r21d-linux-x86_64.zip
-        # Tell Rust to use the right linker when building Android programs.
+        - cd /opt && wget -nc -nv https://dl.google.com/android/repository/android-ndk-r21d-linux-x86_64.zip && cd $TRAVIS_BUILD_DIR
+        - cd /opt && unzip -q android-ndk-r21d-linux-x86_64.zip && cd $TRAVIS_BUILD_DIR
+        # Using clang linker from NDK when building Android programs.
         - install -d $HOME/.cargo
         - echo >> $HOME/.cargo/config
         - echo "[target.aarch64-linux-android]" >> $HOME/.cargo/config
