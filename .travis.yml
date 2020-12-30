@@ -114,13 +114,14 @@ matrix:
     - name: cargo build --release (nightly, android)
       os: linux
       rust: stable
-      env: CI_STAGE_BUILD_RELEASE=yes CI_ANDROID_TEST=yes JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64 ANDROID_SDK_ROOT=/opt/android-ndk-r21d C_INCLUDE_PATH=/opt/android-ndk-r21d/sysroot/usr/include
+      env: CI_STAGE_BUILD_RELEASE=yes CI_ANDROID_TEST=yes JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64 ANDROID_SDK_ROOT=/opt/android-ndk-r21d CC=/opt/android-ndk-r21d/toolchains/llvm/prebuilt/linux-x86_64/bin/clang C_INCLUDE_PATH=/opt/android-ndk-r21d/sysroot/usr/include
       before_script:
         # aarch64 and armv7 cover most Android phones & tablets.
         # However armv7 is not yet available for Rust stable.
         - rustup target add aarch64-linux-android
         - sudo apt-get install openjdk-8-jdk
         # Downloading NDK. This file is huge (1Gb) maybe extract only what's needed and repackage.
+        # See https://developer.android.com/ndk/downloads for updates.
         - install -d /opt
         - cd /opt && wget -nc -nv https://dl.google.com/android/repository/android-ndk-r21d-linux-x86_64.zip && cd $TRAVIS_BUILD_DIR
         - echo "bcf4023eb8cb6976a4c7cff0a8a8f145f162bf4d  /opt/android-ndk-r21d-linux-x86_64.zip" >> /opt/SHA1SUM.txt
