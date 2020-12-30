@@ -117,8 +117,8 @@ matrix:
       env: CI_STAGE_BUILD_RELEASE=yes CI_ANDROID_TEST=yes
       before_script:
         # aarch64 and armv7 cover most Android phones & tablets.
+        # However armv7 is not yet available for Rust stable.
         - rustup target add aarch64-linux-android
-        - rustup target add armv7-linux-android
 
 script:
   - if [[ "$CI_STAGE_CARGO_FMT" == "yes" ]]; then
@@ -154,7 +154,6 @@ script:
       fi;
       if [[ "$CI_ANDROID_TEST" == "yes" ]]; then
         cargo build --target aarch64-linux-android --release;
-        cargo build --target armv7-linux-android --release;
       fi;
     fi
 
