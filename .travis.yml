@@ -114,12 +114,13 @@ matrix:
     - name: cargo build --release (nightly, android)
       os: linux
       rust: stable
-      env: CI_STAGE_BUILD_RELEASE=yes CI_ANDROID_TEST=yes JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64 ANDROID_SDK_ROOT=/opt/android-ndk-r21d CC=/opt/android-ndk-r21d/toolchains/llvm/prebuilt/linux-x86_64/bin/clang C_INCLUDE_PATH=/opt/android-ndk-r21d/sysroot/usr/include
+      env: CI_STAGE_BUILD_RELEASE=yes CI_ANDROID_TEST=yes JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64 ANDROID_SDK_ROOT=/opt/android-ndk-r21d
+      # CC=/opt/android-ndk-r21d/toolchains/llvm/prebuilt/linux-x86_64/bin/clang C_INCLUDE_PATH=/opt/android-ndk-r21d/sysroot/usr/include
       before_script:
         # aarch64 and armv7 cover most Android phones & tablets.
         # However armv7 is not yet available for Rust stable.
         - rustup target add aarch64-linux-android
-        - sudo apt-get install openjdk-8-jdk linux-libc-dev-arm64-cross
+        - sudo apt-get install openjdk-8-jdk llvm-dev libclang-dev clang
         # Downloading NDK. This file is huge (1Gb) maybe extract only what's needed and repackage.
         # See https://developer.android.com/ndk/downloads for updates.
         - install -d /opt
